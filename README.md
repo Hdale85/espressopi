@@ -6,6 +6,14 @@ Turn any commercial or prosumer espresso machine into a precision shot computer 
 
 ---
 
+## UI Preview
+
+![EspressoPi UI](ui/screenshot.png)
+
+> Live pressure curve with target profile overlay, real-time stats, machine status, and a swipe-in settings drawer. Designed for a 1920×550 widescreen touch display.
+
+---
+
 ## What It Does
 
 - **Pressure profiling** — define custom brew curves (ramp, flat, decline)
