@@ -205,3 +205,17 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# EspressoPi
+*.db
+*.sqlite
+shots/
+logs/
+config.local.py
+config.local.json
+secrets.py
+secrets.json
+
+# OS
+.DS_Store
+Thumbs.db
