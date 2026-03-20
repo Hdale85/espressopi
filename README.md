@@ -106,7 +106,7 @@ MIT + Commons Clause — free for personal/hobbyist use.
 Commercial use requires explicit permission from the author.
 See [LICENSE](LICENSE) for full terms.
 
-Commercial licensing inquiries: doug.dale@gmail.com
+Commercial licensing inquiries: hdaleoc@gmail.com
 
 ---
 
