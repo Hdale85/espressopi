@@ -195,17 +195,43 @@
     background: #fafafa;
     border: 1px solid #ebebf0;
     border-radius: 8px;
-    padding: 16px;
+    padding: 12px;
     margin-bottom: 12px;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    gap: 12px;
     transition: all 0.2s ease;
+    overflow: hidden;
   }
 
   .marketplace-item:hover {
     background: #f0f0f5;
     border-color: #d0d0d8;
+  }
+
+  .marketplace-item-preview {
+    flex-shrink: 0;
+    width: 100px;
+    height: 100px;
+    background: #e0e0e8;
+    border-radius: 6px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+  }
+
+  .marketplace-item-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .marketplace-item-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 
   .marketplace-item-info {
@@ -231,18 +257,29 @@
     line-height: 1.4;
   }
 
+  .marketplace-item-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+  }
+
+  .marketplace-item-meta {
+    font-size: 9px;
+    color: #aaa;
+  }
+
   .marketplace-item-button {
     background: linear-gradient(135deg, #7c3aed, #6d28d9);
     border: none;
     color: white;
-    padding: 6px 14px;
+    padding: 6px 12px;
     border-radius: 6px;
     font-size: 10px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
     white-space: nowrap;
-    margin-left: 12px;
     box-shadow: 0 2px 6px rgba(124, 58, 237, 0.2);
   }
 
@@ -1412,51 +1449,81 @@
         <!-- Profiles Tab -->
         <div id="profiles-tab" class="marketplace-tab-content">
           <div class="marketplace-item">
-            <div class="marketplace-item-info">
-              <div class="marketplace-item-name">Espresso Bloom</div>
-              <div class="marketplace-item-author">by @coffeegeek</div>
-              <div class="marketplace-item-desc">Extended pre-infusion with early pressure spike for light roasts</div>
+            <div class="marketplace-item-preview">📊</div>
+            <div class="marketplace-item-content">
+              <div class="marketplace-item-info">
+                <div class="marketplace-item-name">Espresso Bloom</div>
+                <div class="marketplace-item-author">by @coffeegeek</div>
+                <div class="marketplace-item-desc">Extended pre-infusion with early pressure spike for light roasts</div>
+              </div>
+              <div class="marketplace-item-footer">
+                <span class="marketplace-item-meta">⭐⭐⭐⭐⭐ · 324 installs</span>
+                <button class="marketplace-item-button">Install</button>
+              </div>
             </div>
-            <button class="marketplace-item-button">Install</button>
           </div>
 
           <div class="marketplace-item">
-            <div class="marketplace-item-info">
-              <div class="marketplace-item-name">Pressure Ramp</div>
-              <div class="marketplace-item-author">by @thirdwave</div>
-              <div class="marketplace-item-desc">Smooth 30-second ramp with declining finish for balance</div>
+            <div class="marketplace-item-preview">📈</div>
+            <div class="marketplace-item-content">
+              <div class="marketplace-item-info">
+                <div class="marketplace-item-name">Pressure Ramp</div>
+                <div class="marketplace-item-author">by @thirdwave</div>
+                <div class="marketplace-item-desc">Smooth 30-second ramp with declining finish for balanced extraction</div>
+              </div>
+              <div class="marketplace-item-footer">
+                <span class="marketplace-item-meta">⭐⭐⭐⭐ · 192 installs</span>
+                <button class="marketplace-item-button">Install</button>
+              </div>
             </div>
-            <button class="marketplace-item-button">Install</button>
           </div>
 
           <div class="marketplace-item">
-            <div class="marketplace-item-info">
-              <div class="marketplace-item-name">Nordic Light</div>
-              <div class="marketplace-item-author">by @scandinav</div>
-              <div class="marketplace-item-desc">Low-pressure pre-infusion optimized for filter coffee profiles</div>
+            <div class="marketplace-item-preview">❄️</div>
+            <div class="marketplace-item-content">
+              <div class="marketplace-item-info">
+                <div class="marketplace-item-name">Nordic Light</div>
+                <div class="marketplace-item-author">by @scandinav</div>
+                <div class="marketplace-item-desc">Low-pressure pre-infusion optimized for filter coffee profiles</div>
+              </div>
+              <div class="marketplace-item-footer">
+                <span class="marketplace-item-meta">⭐⭐⭐⭐⭐ · 156 installs</span>
+                <button class="marketplace-item-button">Install</button>
+              </div>
             </div>
-            <button class="marketplace-item-button">Install</button>
           </div>
         </div>
 
         <!-- Themes Tab -->
         <div id="themes-tab" class="marketplace-tab-content" style="display: none;">
           <div class="marketplace-item">
-            <div class="marketplace-item-info">
-              <div class="marketplace-item-name">Midnight</div>
-              <div class="marketplace-item-author">by @designstudio</div>
-              <div class="marketplace-item-desc">Deep black with cyan accents, minimal UI</div>
+            <div class="marketplace-item-preview" style="background: linear-gradient(135deg, #1a1a1a, #2a2a3a);">🌙</div>
+            <div class="marketplace-item-content">
+              <div class="marketplace-item-info">
+                <div class="marketplace-item-name">Midnight</div>
+                <div class="marketplace-item-author">by @designstudio</div>
+                <div class="marketplace-item-desc">Deep black with cyan accents, minimal UI for night brewing</div>
+              </div>
+              <div class="marketplace-item-footer">
+                <span class="marketplace-item-meta">⭐⭐⭐⭐⭐ · 512 installs</span>
+                <button class="marketplace-item-button">Install</button>
+              </div>
             </div>
-            <button class="marketplace-item-button">Install</button>
           </div>
 
           <div class="marketplace-item">
-            <div class="marketplace-item-info">
-              <div class="marketplace-item-name">Espresso Bar</div>
-              <div class="marketplace-item-author">by @cafe_designer</div>
-              <div class="marketplace-item-desc">Warm wood tones with coffee shop aesthetic</div>
+            <div class="marketplace-item-preview" style="background: linear-gradient(135deg, #8b6f47, #d4a574);">☕</div>
+            <div class="marketplace-item-content">
+              <div class="marketplace-item-info">
+                <div class="marketplace-item-name">Espresso Bar</div>
+                <div class="marketplace-item-author">by @cafe_designer</div>
+                <div class="marketplace-item-desc">Warm wood tones with coffee shop aesthetic and cozy vibes</div>
+              </div>
+              <div class="marketplace-item-footer">
+                <span class="marketplace-item-meta">⭐⭐⭐⭐ · 287 installs</span>
+                <button class="marketplace-item-button">Install</button>
+              </div>
             </div>
-            <button class="marketplace-item-button">Install</button>
           </div>
         </div>
 

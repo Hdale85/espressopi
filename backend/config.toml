@@ -72,3 +72,5 @@ auto_update_check = true
 panel_mode = "responsive"  # "responsive" = half-screen on widescreen, full on mobile
                            # "fullscreen" = always full screen
                            # "halfscreen" = always half screen
+preview_images = true      # Show screenshot previews for themes/profiles
+image_cache_path = "./data/marketplace_images"

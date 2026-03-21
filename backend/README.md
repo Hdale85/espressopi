@@ -102,6 +102,43 @@ GET /api/profiles
 
 Get all available pressure profiles.
 
+### Marketplace
+
+```
+GET /api/marketplace/profiles
+GET /api/marketplace/themes
+POST /api/marketplace/install/profile
+POST /api/marketplace/install/theme
+```
+
+Browse and install profiles/themes from the marketplace.
+
+Response format:
+
+```json
+{
+  "profiles": [
+    {
+      "id": "espresso-bloom",
+      "name": "Espresso Bloom",
+      "description": "Extended pre-infusion...",
+      "author": "@coffeegeek",
+      "image_url": "https://cdn.espressopi.io/profiles/bloom.png",
+      "ratings": 4.9,
+      "installs": 324,
+      "config": { /* profile JSON */ }
+    }
+  ]
+}
+```
+
+**Image guidelines:**
+- PNG or JPEG format
+- Minimum 400×400px for clarity
+- For profiles: graph screenshot or pressure curve visualization
+- For themes: full UI screenshot showing the theme in action
+- Keep file <1MB for fast loading
+
 ### Live Stream
 
 ```
