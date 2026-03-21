@@ -85,26 +85,28 @@ This hybrid approach means:
 ## Software Stack
 
 - **Python 3** on Raspberry Pi OS
-- **Pygame** — fullscreen 1920×550 UI
+- **FastAPI** — RESTful API server (`/backend`)
+- **Pygame** — fullscreen 1920×550 UI (HTML prototype ready at `/index.html`)
 - **SQLite** — shot log database
-- **FastAPI** — local web interface
-- Waveshare ADS1256 library
-- Adafruit MAX31855 library
+- **WebSocket** — real-time live data during shots
+- Waveshare ADS1256 library (ADC)
+- Adafruit MAX31855 library (thermocouple)
 
 ---
 
 ## Status
 
-🔧 **In development** — hardware arriving, software not yet started.
+🔧 **Backend scaffolded, UI prototyped, hardware incoming**
 
 - [x] Architecture designed
 - [x] Parts ordered
+- [x] FastAPI backend (config-driven, mocked sensors, shot control logic)
+- [x] UI mockup with animations (HTML/CSS/JS)
+- [ ] Pygame UI (modular components)
 - [ ] Hardware assembly
 - [ ] Sensor wiring + testing
-- [ ] UI development
-- [ ] Shot control logic
-- [ ] Shot logging
-- [ ] Pressure profiling
+- [ ] Real GPIO implementation
+- [ ] Full Decent feature parity
 
 ---
 
