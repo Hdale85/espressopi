@@ -26,14 +26,19 @@
     grid-template-columns: 260px 1fr 240px;
     border: 1px solid #1e1e24;
     overflow: hidden;
-    transition: grid-template-columns 0.3s ease;
+    transition: all 0.3s ease;
     position: relative;
   }
 
   .screen.settings-open {
     grid-template-columns: 260px 1fr 240px;
     padding-right: 580px;
-    transition: padding-right 0.3s ease;
+    transition: padding-right 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .screen.marketplace-open {
+    padding-right: 50%;
+    transition: padding-right 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   /* Settings drawer */
@@ -59,48 +64,32 @@
     width: 580px;
   }
 
-  /* Marketplace overlay */
+  /* Marketplace drawer (slides from right) */
   .marketplace-overlay {
-    position: fixed;
+    position: absolute;
     top: 0;
-    left: 0;
     right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: none;
+    width: 0;
+    height: 100%;
+    background: #f8f8fa;
+    border-left: 1px solid #ddd;
+    overflow: hidden;
+    transition: width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     z-index: 20;
-    animation: fadeIn 0.3s ease;
+    display: flex;
+    flex-direction: column;
   }
 
   .marketplace-overlay.open {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 50%;  /* Half screen on 1920×550 */
   }
 
   .marketplace-panel {
     background: #f8f8fa;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
-    animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  /* Responsive: 1920×550 → half screen, mobile → full screen */
-  @media (min-width: 1920px) {
-    .marketplace-panel {
-      width: 900px;
-      height: 480px;
-    }
-  }
-
-  @media (max-width: 1919px) {
-    .marketplace-panel {
-      width: 90vw;
-      height: 80vh;
-    }
+    height: 100%;
+    width: 100%;
   }
 
   .marketplace-header {
@@ -143,12 +132,14 @@
     flex: 1;
     padding: 20px 24px;
     overflow-y: auto;
+    overflow-x: hidden;
     scrollbar-width: thin;
     scrollbar-color: #ccc #f8f8fa;
+    min-height: 0;  /* Allow flex children to scroll */
   }
 
   .marketplace-content::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
   }
 
   .marketplace-content::-webkit-scrollbar-track {
@@ -156,12 +147,12 @@
   }
 
   .marketplace-content::-webkit-scrollbar-thumb {
-    background: #ccc;
-    border-radius: 4px;
+    background: #ddd;
+    border-radius: 3px;
   }
 
   .marketplace-content::-webkit-scrollbar-thumb:hover {
-    background: #999;
+    background: #bbb;
   }
 
   .marketplace-tabs {
@@ -1465,7 +1456,7 @@
   </div>
 
   <!-- Control buttons -->
-  <button class="marketplace-btn" onclick="document.querySelector('.marketplace-overlay').classList.toggle('open');">⬇</button>
+  <button class="marketplace-btn" onclick="toggleMarketplace();">⬇</button>
   <button class="gear-btn" onclick="document.querySelector('.settings-drawer').classList.toggle('open'); document.querySelector('.screen').classList.toggle('settings-open');">⚙</button>
 
   <!-- Settings Drawer -->
@@ -1609,7 +1600,7 @@
     <div class="marketplace-panel">
       <div class="marketplace-header">
         <span class="marketplace-title">Marketplace</span>
-        <button class="marketplace-close" onclick="document.querySelector('.marketplace-overlay').classList.remove('open');">✕</button>
+        <button class="marketplace-close" onclick="toggleMarketplace();">✕</button>
       </div>
 
       <div class="marketplace-content">
@@ -2030,6 +2021,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+// Toggle marketplace drawer
+function toggleMarketplace() {
+  const marketplace = document.querySelector('.marketplace-overlay');
+  const screen = document.querySelector('.screen');
+  marketplace.classList.toggle('open');
+  screen.classList.toggle('marketplace-open');
+}
 
 // Marketplace tab switching
 function switchMarketplaceTab(button, tabName) {
