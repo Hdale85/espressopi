@@ -59,6 +59,177 @@
     width: 580px;
   }
 
+  /* Marketplace overlay */
+  .marketplace-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 20;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .marketplace-overlay.open {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .marketplace-panel {
+    background: #0d0d0f;
+    border: 1px solid #1e1e24;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* Responsive: 1920×550 → half screen, mobile → full screen */
+  @media (min-width: 1920px) {
+    .marketplace-panel {
+      width: 900px;
+      height: 480px;
+    }
+  }
+
+  @media (max-width: 1919px) {
+    .marketplace-panel {
+      width: 90vw;
+      height: 80vh;
+    }
+  }
+
+  .marketplace-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid #1e1e24;
+  }
+
+  .marketplace-title {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #7c3aed;
+    text-transform: uppercase;
+  }
+
+  .marketplace-close {
+    background: none;
+    border: 1px solid #2a2a38;
+    color: #555;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .marketplace-content {
+    flex: 1;
+    padding: 20px 24px;
+    overflow-y: auto;
+  }
+
+  .marketplace-tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #1e1e24;
+    padding-bottom: 12px;
+  }
+
+  .marketplace-tab {
+    background: none;
+    border: none;
+    color: #555;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding-bottom: 8px;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s ease;
+  }
+
+  .marketplace-tab.active {
+    color: #7c3aed;
+    border-bottom-color: #7c3aed;
+  }
+
+  .marketplace-item {
+    background: #16161e;
+    border: 1px solid #1e1e24;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.2s ease;
+  }
+
+  .marketplace-item:hover {
+    background: #1a1a24;
+    border-color: #2a2a38;
+  }
+
+  .marketplace-item-info {
+    flex: 1;
+  }
+
+  .marketplace-item-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #e8e8e8;
+    margin-bottom: 4px;
+  }
+
+  .marketplace-item-author {
+    font-size: 10px;
+    color: #555;
+    margin-bottom: 6px;
+  }
+
+  .marketplace-item-desc {
+    font-size: 11px;
+    color: #3a3a44;
+    line-height: 1.4;
+  }
+
+  .marketplace-item-button {
+    background: linear-gradient(135deg, #7c3aed, #6d28d9);
+    border: none;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    margin-left: 12px;
+  }
+
+  .marketplace-item-button:hover {
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+    transform: translateY(-1px);
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
   .settings-inner {
     width: 580px;
     height: 100%;
@@ -174,10 +345,9 @@
   .settings-row-toggle.off::after { left: 3px; }
 
   /* Gear button */
-  .gear-btn {
+  .gear-btn, .marketplace-btn {
     position: absolute;
     bottom: 14px;
-    right: 14px;
     width: 32px;
     height: 32px;
     background: #16161e;
@@ -193,7 +363,18 @@
     transition: border-color 0.2s, color 0.2s;
   }
 
-  .gear-btn:hover { border-color: #7c3aed; color: #7c3aed; }
+  .gear-btn {
+    right: 14px;
+  }
+
+  .marketplace-btn {
+    right: 52px;
+  }
+
+  .gear-btn:hover, .marketplace-btn:hover { 
+    border-color: #7c3aed; 
+    color: #7c3aed; 
+  }
 
   /* ─── LEFT PANEL ─── */
   .left {
@@ -1080,7 +1261,8 @@
     </div>
   </div>
 
-  <!-- Gear button -->
+  <!-- Control buttons -->
+  <button class="marketplace-btn" onclick="document.querySelector('.marketplace-overlay').classList.toggle('open');">⬇</button>
   <button class="gear-btn" onclick="document.querySelector('.settings-drawer').classList.toggle('open'); document.querySelector('.screen').classList.toggle('settings-open');">⚙</button>
 
   <!-- Settings Drawer -->
@@ -1179,6 +1361,83 @@
         </div>
       </div>
 
+    </div>
+  </div>
+
+  <!-- Marketplace Overlay -->
+  <div class="marketplace-overlay">
+    <div class="marketplace-panel">
+      <div class="marketplace-header">
+        <span class="marketplace-title">Marketplace</span>
+        <button class="marketplace-close" onclick="document.querySelector('.marketplace-overlay').classList.remove('open');">✕</button>
+      </div>
+
+      <div class="marketplace-content">
+        <div class="marketplace-tabs">
+          <button class="marketplace-tab active" onclick="switchMarketplaceTab(this, 'profiles')">Profiles</button>
+          <button class="marketplace-tab" onclick="switchMarketplaceTab(this, 'themes')">Themes</button>
+          <button class="marketplace-tab" onclick="switchMarketplaceTab(this, 'recipes')">Recipes</button>
+        </div>
+
+        <!-- Profiles Tab -->
+        <div id="profiles-tab" class="marketplace-tab-content">
+          <div class="marketplace-item">
+            <div class="marketplace-item-info">
+              <div class="marketplace-item-name">Espresso Bloom</div>
+              <div class="marketplace-item-author">by @coffeegeek</div>
+              <div class="marketplace-item-desc">Extended pre-infusion with early pressure spike for light roasts</div>
+            </div>
+            <button class="marketplace-item-button">Install</button>
+          </div>
+
+          <div class="marketplace-item">
+            <div class="marketplace-item-info">
+              <div class="marketplace-item-name">Pressure Ramp</div>
+              <div class="marketplace-item-author">by @thirdwave</div>
+              <div class="marketplace-item-desc">Smooth 30-second ramp with declining finish for balance</div>
+            </div>
+            <button class="marketplace-item-button">Install</button>
+          </div>
+
+          <div class="marketplace-item">
+            <div class="marketplace-item-info">
+              <div class="marketplace-item-name">Nordic Light</div>
+              <div class="marketplace-item-author">by @scandinav</div>
+              <div class="marketplace-item-desc">Low-pressure pre-infusion optimized for filter coffee profiles</div>
+            </div>
+            <button class="marketplace-item-button">Install</button>
+          </div>
+        </div>
+
+        <!-- Themes Tab -->
+        <div id="themes-tab" class="marketplace-tab-content" style="display: none;">
+          <div class="marketplace-item">
+            <div class="marketplace-item-info">
+              <div class="marketplace-item-name">Midnight</div>
+              <div class="marketplace-item-author">by @designstudio</div>
+              <div class="marketplace-item-desc">Deep black with cyan accents, minimal UI</div>
+            </div>
+            <button class="marketplace-item-button">Install</button>
+          </div>
+
+          <div class="marketplace-item">
+            <div class="marketplace-item-info">
+              <div class="marketplace-item-name">Espresso Bar</div>
+              <div class="marketplace-item-author">by @cafe_designer</div>
+              <div class="marketplace-item-desc">Warm wood tones with coffee shop aesthetic</div>
+            </div>
+            <button class="marketplace-item-button">Install</button>
+          </div>
+        </div>
+
+        <!-- Recipes Tab -->
+        <div id="recipes-tab" class="marketplace-tab-content" style="display: none;">
+          <div style="text-align: center; color: #555; padding: 40px 20px;">
+            <p style="margin-bottom: 12px;">🔜 Coming soon</p>
+            <p style="font-size: 11px;">Share your best dialed-in shots and workflows</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1451,6 +1710,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.espressoUI = new EspressoUI();
 });
+
+// Marketplace tab switching
+function switchMarketplaceTab(button, tabName) {
+  // Deactivate all tabs
+  document.querySelectorAll('.marketplace-tab').forEach(tab => {
+    tab.classList.remove('active');
+  });
+  document.querySelectorAll('.marketplace-tab-content').forEach(content => {
+    content.style.display = 'none';
+  });
+
+  // Activate selected tab
+  button.classList.add('active');
+  const tabId = tabName + '-tab';
+  const tabContent = document.getElementById(tabId);
+  if (tabContent) {
+    tabContent.style.display = 'block';
+  }
+}
 </script>
 </body>
 </html>

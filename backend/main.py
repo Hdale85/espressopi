@@ -261,6 +261,52 @@ async def set_theme(theme_name: str) -> dict:
     return {"theme": theme_name, "status": "applied"}
 
 
+# ─── MARKETPLACE ───
+
+@app.get("/api/marketplace/profiles")
+async def get_marketplace_profiles(limit: int = 50) -> dict:
+    """Get available profiles from marketplace."""
+    # TODO: Fetch from marketplace API
+    # For now, return empty (stub)
+    return {
+        "profiles": [],
+        "total": 0,
+        "url": config.get("marketplace", "url"),
+    }
+
+
+@app.get("/api/marketplace/themes")
+async def get_marketplace_themes(limit: int = 50) -> dict:
+    """Get available themes from marketplace."""
+    # TODO: Fetch from marketplace API
+    return {
+        "themes": [],
+        "total": 0,
+        "url": config.get("marketplace", "url"),
+    }
+
+
+@app.post("/api/marketplace/install/profile")
+async def install_profile(name: str, config_json: dict) -> dict:
+    """Install a profile from marketplace."""
+    # TODO: Validate + install profile
+    return {"profile": name, "status": "installed"}
+
+
+@app.post("/api/marketplace/install/theme")
+async def install_theme(name: str, config_json: dict) -> dict:
+    """Install a theme from marketplace."""
+    # TODO: Validate + install theme
+    return {"theme": name, "status": "installed"}
+
+
+@app.post("/api/marketplace/share")
+async def share_to_marketplace(item_type: str, name: str, config_json: dict) -> dict:
+    """Submit a profile/theme to marketplace (future)."""
+    # TODO: Validate + submit to marketplace
+    return {"item": name, "status": "submitted"}
+
+
 # ─── WEBSOCKET ───
 
 @app.websocket("/ws/live")

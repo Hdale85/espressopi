@@ -62,3 +62,13 @@ cors_origins = ["*"]
 [logging]
 level = "INFO"
 format = "json"  # or "text"
+
+[marketplace]
+enabled = true
+url = "https://marketplace.espressopi.io/api"  # Stub URL for now
+cache_profiles = true
+cache_themes = true
+auto_update_check = true
+panel_mode = "responsive"  # "responsive" = half-screen on widescreen, full on mobile
+                           # "fullscreen" = always full screen
+                           # "halfscreen" = always half screen
