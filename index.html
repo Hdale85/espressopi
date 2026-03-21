@@ -297,6 +297,142 @@
     to { opacity: 1; }
   }
 
+  /* Recipe modal */
+  .recipe-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 30;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .recipe-modal.open {
+    display: flex;
+  }
+
+  .recipe-modal-content {
+    background: #f8f8fa;
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .recipe-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+
+  .recipe-modal-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+
+  .recipe-modal-close {
+    background: none;
+    border: 1px solid #ccc;
+    color: #666;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .recipe-modal-close:hover {
+    border-color: #7c3aed;
+    color: #7c3aed;
+  }
+
+  .recipe-modal-author {
+    font-size: 11px;
+    color: #888;
+    margin-bottom: 12px;
+  }
+
+  .recipe-modal-desc {
+    font-size: 13px;
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    padding: 12px;
+    background: #f0f0f5;
+    border-left: 3px solid #7c3aed;
+    border-radius: 4px;
+  }
+
+  .recipe-modal-section {
+    margin-bottom: 20px;
+  }
+
+  .recipe-modal-section-title {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #7c3aed;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .recipe-modal-section-content {
+    font-size: 12px;
+    color: #555;
+    line-height: 1.6;
+  }
+
+  .recipe-modal-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .recipe-modal-steps li {
+    margin-bottom: 8px;
+    padding-left: 24px;
+    position: relative;
+  }
+
+  .recipe-modal-steps li::before {
+    content: attr(data-step);
+    position: absolute;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    background: #7c3aed;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  .recipe-card {
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .recipe-card:hover {
+    transform: translateY(-2px);
+  }
+
   .settings-inner {
     width: 580px;
     height: 100%;
@@ -1431,6 +1567,43 @@
     </div>
   </div>
 
+  <!-- Recipe Modal -->
+  <div class="recipe-modal" id="recipeModal">
+    <div class="recipe-modal-content">
+      <div class="recipe-modal-header">
+        <div>
+          <div class="recipe-modal-title" id="recipeTitle">Recipe Name</div>
+          <div class="recipe-modal-author" id="recipeAuthor">by @author</div>
+        </div>
+        <button class="recipe-modal-close" onclick="closeRecipeModal();">✕</button>
+      </div>
+
+      <div class="recipe-modal-desc" id="recipeDesc">Description goes here</div>
+
+      <div class="recipe-modal-section">
+        <div class="recipe-modal-section-title">Bean Profile</div>
+        <div class="recipe-modal-section-content" id="recipeBeans">...</div>
+      </div>
+
+      <div class="recipe-modal-section">
+        <div class="recipe-modal-section-title">Settings</div>
+        <div class="recipe-modal-section-content" id="recipeSettings">...</div>
+      </div>
+
+      <div class="recipe-modal-section">
+        <div class="recipe-modal-section-title">Workflow</div>
+        <ol class="recipe-modal-steps" id="recipeSteps">
+          <li data-step="1">Step description</li>
+        </ol>
+      </div>
+
+      <div style="display: flex; gap: 12px;">
+        <button class="marketplace-item-button" style="flex: 1;" onclick="closeRecipeModal();">Close</button>
+        <button class="marketplace-item-button" style="flex: 1;" onclick="saveRecipe();">Save Recipe</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Marketplace Overlay -->
   <div class="marketplace-overlay">
     <div class="marketplace-panel">
@@ -1529,10 +1702,52 @@
 
         <!-- Recipes Tab -->
         <div id="recipes-tab" class="marketplace-tab-content" style="display: none;">
-          <div style="text-align: center; color: #888; padding: 40px 20px;">
-            <p style="margin-bottom: 12px; font-size: 28px;">🔜</p>
-            <p style="margin-bottom: 6px; font-weight: 600; color: #444;">Coming soon</p>
-            <p style="font-size: 11px;">Share your best dialed-in shots and workflows</p>
+          <div class="recipe-card" onclick="openRecipeModal('light-roast-espresso')">
+            <div class="marketplace-item" style="cursor: pointer;">
+              <div class="marketplace-item-preview">☕</div>
+              <div class="marketplace-item-content">
+                <div class="marketplace-item-info">
+                  <div class="marketplace-item-name">Light Roast Espresso</div>
+                  <div class="marketplace-item-author">by @thirdwave_roasters</div>
+                  <div class="marketplace-item-desc">Optimized workflow for bright, fruity single-origin light roasts</div>
+                </div>
+                <div class="marketplace-item-footer">
+                  <span class="marketplace-item-meta">⭐⭐⭐⭐⭐ · 89 saved</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="recipe-card" onclick="openRecipeModal('dark-roast-milk')">
+            <div class="marketplace-item" style="cursor: pointer;">
+              <div class="marketplace-item-preview">🥛</div>
+              <div class="marketplace-item-content">
+                <div class="marketplace-item-info">
+                  <div class="marketplace-item-name">Dark Roast Milk Drink</div>
+                  <div class="marketplace-item-author">by @barista_cafe</div>
+                  <div class="marketplace-item-desc">Bold espresso base with milk steaming tips for lattes and flat whites</div>
+                </div>
+                <div class="marketplace-item-footer">
+                  <span class="marketplace-item-meta">⭐⭐⭐⭐⭐ · 156 saved</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="recipe-card" onclick="openRecipeModal('seasonal-blend')">
+            <div class="marketplace-item" style="cursor: pointer;">
+              <div class="marketplace-item-preview">🍂</div>
+              <div class="marketplace-item-content">
+                <div class="marketplace-item-info">
+                  <div class="marketplace-item-name">Seasonal Blend</div>
+                  <div class="marketplace-item-author">by @coffeegeek</div>
+                  <div class="marketplace-item-desc">Adaptive recipe for rotating seasonal blends with dial-in notes</div>
+                </div>
+                <div class="marketplace-item-footer">
+                  <span class="marketplace-item-meta">⭐⭐⭐⭐ · 124 saved</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1807,6 +2022,13 @@ document.addEventListener('DOMContentLoaded', () => {
   if (tempEl) tempEl.setAttribute('data-stat', 'temp');
 
   window.espressoUI = new EspressoUI();
+
+  // Close recipe modal when clicking outside
+  document.getElementById('recipeModal').addEventListener('click', (e) => {
+    if (e.target.id === 'recipeModal') {
+      closeRecipeModal();
+    }
+  });
 });
 
 // Marketplace tab switching
@@ -1826,6 +2048,88 @@ function switchMarketplaceTab(button, tabName) {
   if (tabContent) {
     tabContent.style.display = 'block';
   }
+}
+
+// Recipe database
+const recipes = {
+  'light-roast-espresso': {
+    title: 'Light Roast Espresso',
+    author: '@thirdwave_roasters',
+    description: 'Optimized workflow for bright, fruity single-origin light roasts. Emphasizes clarity and acidity.',
+    beans: 'Single-origin light roast · 2-3 weeks old · 18-20g dose',
+    settings: 'Pre-infusion: 2.5 bar, 6 sec · Ramp to 9 bar over 3 sec · Plateau 9 bar · Pull time: 26-28 sec',
+    steps: [
+      'Grind fresh to medium-fine (1.2mm on a good burr)',
+      'Distribute evenly in basket, slight tamp',
+      'Start pre-infusion at 2.5 bar for 6 seconds',
+      'Ramp to full 9 bar over 3 seconds',
+      'Hold 9 bar plateau until you hit 26-28 seconds',
+      'Watch the pour: bright amber is your target',
+      'Stop when flow slows to honey drip',
+      'Enjoy immediately—these highlight top notes'
+    ]
+  },
+  'dark-roast-milk': {
+    title: 'Dark Roast Milk Drink',
+    author: '@barista_cafe',
+    description: 'Bold espresso base with milk steaming tips for lattes and flat whites. Heavy body to stand up to milk.',
+    beans: 'Dark roast blend · 1-2 weeks old · 19g dose',
+    settings: 'Pre-infusion: 3 bar, 4 sec · Ramp to 9 bar · Plateau to 28-30 sec · Pull yield: 40-42g',
+    steps: [
+      'Grind to medium (slightly coarser than espresso)',
+      'Tamp firmly with 25kg pressure',
+      'Pre-infuse at 3 bar for 4 seconds',
+      'Increase to 9 bar smoothly',
+      'Watch for first drops at ~8 seconds',
+      'Pull to 28-30 seconds (dark roasts extract fast)',
+      'Steam milk: heat to 150°F, create vortex',
+      'Top with microfoam, pour into espresso'
+    ]
+  },
+  'seasonal-blend': {
+    title: 'Seasonal Blend',
+    author: '@coffeegeek',
+    description: 'Adaptive recipe for rotating seasonal blends with dial-in notes. Update settings as roasts change.',
+    beans: 'Seasonal blend (varies monthly) · 18.5g dose',
+    settings: 'Adjustable: try 2.5-3 bar pre-infusion · Ramp 1-2 sec · Plateau 8.5-9.5 bar · Target 25-30 sec',
+    steps: [
+      'Start baseline: 2.5 bar pre-infusion, 6 sec',
+      'Ramp to 9 bar, pull for 27 seconds',
+      'Taste: too bitter? Lower temp/pressure, shorten time',
+      'Too sour? Extend pre-infusion or increase temp',
+      'Record your adjustments in the notes field',
+      'Each batch may need 2-3 dial-ins as it ages',
+      'Share your findings to the marketplace',
+      'Update profile version when you nail it'
+    ]
+  }
+};
+
+function openRecipeModal(recipeId) {
+  const recipe = recipes[recipeId];
+  if (!recipe) return;
+
+  document.getElementById('recipeTitle').textContent = recipe.title;
+  document.getElementById('recipeAuthor').textContent = 'by ' + recipe.author;
+  document.getElementById('recipeDesc').textContent = recipe.description;
+  document.getElementById('recipeBeans').textContent = recipe.beans;
+  document.getElementById('recipeSettings').textContent = recipe.settings;
+
+  const stepsHtml = recipe.steps
+    .map((step, i) => `<li data-step="${i + 1}">${step}</li>`)
+    .join('');
+  document.getElementById('recipeSteps').innerHTML = stepsHtml;
+
+  document.getElementById('recipeModal').classList.add('open');
+}
+
+function closeRecipeModal() {
+  document.getElementById('recipeModal').classList.remove('open');
+}
+
+function saveRecipe() {
+  alert('Recipe saved to your collection! 🎉');
+  closeRecipeModal();
 }
 </script>
 </body>
