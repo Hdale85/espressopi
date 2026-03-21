@@ -51,13 +51,12 @@
     flex-direction: column;
   }
 
-  .settings-drawer.open {
-    width: 580px;
-    animation: bounceIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  .settings-drawer {
+    transition: width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
-  .settings-drawer.closing {
-    animation: bounceOut 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  .settings-drawer.open {
+    width: 580px;
   }
 
   .settings-inner {
@@ -1421,15 +1420,9 @@ class EspressoUI {
     const screen = document.querySelector('.screen');
     
     if (drawer.classList.contains('open')) {
-      // Close with bounce out
-      drawer.classList.add('closing');
-      setTimeout(() => {
-        drawer.classList.remove('open');
-        drawer.classList.remove('closing');
-        screen.classList.remove('settings-open');
-      }, 300);
+      drawer.classList.remove('open');
+      screen.classList.remove('settings-open');
     } else {
-      // Open with bounce in
       drawer.classList.add('open');
       screen.classList.add('settings-open');
     }
