@@ -872,6 +872,20 @@
     opacity: 0.7;
   }
 
+  .history-item {
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: #16161e;
+    border: 1px solid #2a2a38;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .history-item:hover {
+    background: #1a1a24;
+    border-color: #7c3aed;
+  }
+
   .shot-controls {
     display: flex;
     flex-direction: column;
@@ -1521,13 +1535,51 @@
     <div class="logo" style="text-transform:none; letter-spacing:1px; font-size:15px;">EspressoPi</div>
     <div class="machine-name">WEGA IO 1GR</div>
     <div class="divider"></div>
-    <div class="label">Profile</div>
-    <div class="profile-list">
+    <div class="label">Shots</div>
+    <div style="display:flex; gap:4px; margin-bottom:8px; background:#0a0a0a; padding:4px; border-radius:6px;">
+      <button onclick="showTab('profiles-list')" style="flex:1; padding:6px; background:#16161e; border:1px solid #2a2a38; color:#7c3aed; font-size:10px; font-weight:600; border-radius:4px; cursor:pointer; transition:all 0.2s;" class="shot-tab-btn" id="tab-profiles">Profiles</button>
+      <button onclick="showTab('history-list')" style="flex:1; padding:6px; background:transparent; border:1px solid transparent; color:#555; font-size:10px; font-weight:600; border-radius:4px; cursor:pointer; transition:all 0.2s;" class="shot-tab-btn" id="tab-history">History</button>
+    </div>
+
+    <div id="profiles-list">
+      <div class="profile-list">
       <div class="profile-item active">Classic 9-Bar <span class="badge">ACTIVE</span></div>
       <div class="profile-item">Turbo Bloom</div>
       <div class="profile-item">Pressure Ramp</div>
       <div class="profile-item">Slayer Style</div>
     </div>
+    </div>
+
+    <div id="history-list" style="display:none;">
+      <div style="display:flex; flex-direction:column; gap:4px; max-height:280px; overflow-y:auto; scrollbar-width:none;">
+        <div class="history-item" onclick="viewShotDetail(0);">
+          <div style="font-size:10px; font-weight:600; color:#7c3aed;">27.4s • 9.1¯ • 38ml</div>
+          <div style="font-size:8px; color:#888; margin-top:2px;">2 mins ago</div>
+          <div style="font-size:8px; color:#666;">Classic 9-Bar</div>
+        </div>
+        <div class="history-item" onclick="viewShotDetail(1);">
+          <div style="font-size:10px; font-weight:600; color:#e8873a;">24.1s • 9.2¯ • 36ml</div>
+          <div style="font-size:8px; color:#888; margin-top:2px;">15 mins ago</div>
+          <div style="font-size:8px; color:#666;">Classic 9-Bar</div>
+        </div>
+        <div class="history-item" onclick="viewShotDetail(2);">
+          <div style="font-size:10px; font-weight:600; color:#3ddc84;">26.8s • 8.9¯ • 37ml</div>
+          <div style="font-size:8px; color:#888; margin-top:2px;">28 mins ago</div>
+          <div style="font-size:8px; color:#666;">Turbo Bloom</div>
+        </div>
+        <div class="history-item" onclick="viewShotDetail(3);">
+          <div style="font-size:10px; font-weight:600; color:#aaa;">23.2s • 8.7¯ • 35ml</div>
+          <div style="font-size:8px; color:#888; margin-top:2px;">1h ago</div>
+          <div style="font-size:8px; color:#666;">Pressure Ramp</div>
+        </div>
+        <div class="history-item" onclick="viewShotDetail(4);">
+          <div style="font-size:10px; font-weight:600; color:#aaa;">28.5s • 9.3¯ • 39ml</div>
+          <div style="font-size:8px; color:#888; margin-top:2px;">2h ago</div>
+          <div style="font-size:8px; color:#666;">Classic 9-Bar</div>
+        </div>
+      </div>
+    </div>
+
     <div class="divider"></div>
     <div class="shot-controls">
       <div class="toggle-row">
@@ -2487,6 +2539,39 @@ function toggleMarketplace() {
   const screen = document.querySelector('.screen');
   marketplace.classList.toggle('open');
   screen.classList.toggle('marketplace-open');
+}
+
+// Tab Switching (Profiles vs History)
+function showTab(tabId) {
+  // Hide all tabs
+  document.getElementById('profiles-list').style.display = 'none';
+  document.getElementById('history-list').style.display = 'none';
+  
+  // Update button styles
+  document.getElementById('tab-profiles').style.background = 'transparent';
+  document.getElementById('tab-profiles').style.color = '#555';
+  document.getElementById('tab-history').style.background = 'transparent';
+  document.getElementById('tab-history').style.color = '#555';
+  
+  // Show selected tab
+  document.getElementById(tabId).style.display = 'block';
+  
+  // Update button style for active tab
+  if (tabId === 'profiles-list') {
+    document.getElementById('tab-profiles').style.background = '#16161e';
+    document.getElementById('tab-profiles').style.color = '#7c3aed';
+    document.getElementById('tab-profiles').style.borderColor = '#2a2a38';
+  } else {
+    document.getElementById('tab-history').style.background = '#16161e';
+    document.getElementById('tab-history').style.color = '#7c3aed';
+    document.getElementById('tab-history').style.borderColor = '#2a2a38';
+  }
+}
+
+// Shot History & Details
+function viewShotDetail(shotIndex) {
+  alert('Shot #' + (shotIndex + 1) + ' detail modal - coming soon!\n\nWill show: full chart, pressure peak, avg, output, notes, grind setting');
+  // TODO: Open modal with shot detail
 }
 
 // Shot Comparison
