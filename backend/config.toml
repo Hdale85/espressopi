@@ -1,0 +1,64 @@
+# EspressoPi Configuration
+# All GPIO pins, sensor types, and machine settings in one place
+
+[machine]
+name = "Wega IO 1GR"
+screen_width = 1920
+screen_height = 550
+
+[sensors]
+# ADC chip and pressure transducers
+adc_type = "ADS1256"
+adc_spi_port = 0
+adc_spi_device = 0
+
+# Pressure sensor channels (ADS1256 channels)
+pressure_brew_channel = 0    # 0-5V → 0-15 bar
+pressure_steam_channel = 1   # 0-5V → 0-60 PSI
+
+# Temperature
+temp_i2c_address = 0x60      # MAX31855 I2C address
+temp_sensor_type = "k-type"
+
+# Water level (analog or digital)
+water_level_channel = 2      # ADC channel for water level
+water_threshold_low = 1.0    # volts (20% full)
+water_threshold_critical = 0.5  # volts (10% full)
+
+[gpio]
+# GPIO pin assignments (BCM numbering)
+pump_enable_pin = 23         # STEMME pump enable
+group_solenoid_pin = 24      # EV1 group solenoid
+steam_solenoid_pin = 25      # Steam solenoid (backup)
+status_led_pin = 27          # Status indicator
+
+[hardware]
+pump_type = "STEMME"         # STEMME for gear pump
+solenoid_type = "24VAC"      # Solenoid voltage
+ssr_channels = 4             # 4-channel SSR board
+
+[profiles]
+default_profile = "classic-9bar"
+profiles_path = "./profiles"
+
+[shot_control]
+pre_infusion_duration = 6.0  # seconds
+pre_infusion_pressure = 2.5  # bar
+target_pressure = 9.0        # bar
+max_shot_time = 45           # seconds
+volumetric_dose_target = 38  # ml
+
+[database]
+type = "sqlite"
+path = "./data/shots.db"
+auto_init = true
+
+[api]
+host = "0.0.0.0"
+port = 8000
+debug = false
+cors_origins = ["*"]
+
+[logging]
+level = "INFO"
+format = "json"  # or "text"
