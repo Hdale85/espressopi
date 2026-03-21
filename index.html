@@ -275,6 +275,251 @@
     to { opacity: 1; }
   }
 
+  /* Profile Editor Modal */
+  .profile-editor-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 30;
+    animation: fadeIn 0.3s ease;
+  }
+
+  .profile-editor-modal.open {
+    display: flex;
+  }
+
+  .profile-editor-content {
+    background: #f8f8fa;
+    border-radius: 12px;
+    padding: 0;
+    max-width: 700px;
+    max-height: 90vh;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .profile-editor-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #e0e0e8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .profile-editor-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #7c3aed;
+    text-transform: uppercase;
+  }
+
+  .profile-editor-close {
+    background: none;
+    border: 1px solid #ccc;
+    color: #666;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+
+  .profile-editor-close:hover {
+    border-color: #7c3aed;
+    color: #7c3aed;
+  }
+
+  .profile-editor-body {
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+  }
+
+  .profile-editor-section {
+    margin-bottom: 24px;
+  }
+
+  .profile-editor-section-title {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: #7c3aed;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .profile-editor-field {
+    margin-bottom: 16px;
+  }
+
+  .profile-editor-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 6px;
+  }
+
+  .profile-editor-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    color: #1a1a1a;
+  }
+
+  .profile-editor-input::placeholder {
+    color: #aaa;
+  }
+
+  .profile-editor-input:focus {
+    outline: none;
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+  }
+
+  .profile-editor-textarea {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 12px;
+    font-family: 'Inter', sans-serif;
+    color: #1a1a1a;
+    resize: vertical;
+    min-height: 60px;
+  }
+
+  .profile-editor-slider-group {
+    background: #fafafa;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 12px;
+  }
+
+  .profile-editor-slider-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .profile-editor-slider-row:last-child {
+    margin-bottom: 0;
+  }
+
+  .profile-editor-slider-label {
+    font-size: 11px;
+    color: #666;
+    min-width: 120px;
+  }
+
+  .profile-editor-slider {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: #ddd;
+    outline: none;
+    -webkit-appearance: none;
+  }
+
+  .profile-editor-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #7c3aed;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(124, 58, 237, 0.3);
+  }
+
+  .profile-editor-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #7c3aed;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 4px rgba(124, 58, 237, 0.3);
+  }
+
+  .profile-editor-value {
+    font-size: 11px;
+    font-weight: 600;
+    color: #7c3aed;
+    min-width: 40px;
+    text-align: right;
+  }
+
+  .profile-editor-preview {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 12px;
+    height: 180px;
+    margin-bottom: 12px;
+  }
+
+  .profile-editor-preview svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .profile-editor-footer {
+    padding: 16px 24px;
+    border-top: 1px solid #e0e0e8;
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+  }
+
+  .profile-editor-btn {
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .profile-editor-btn-cancel {
+    background: #f0f0f5;
+    color: #666;
+  }
+
+  .profile-editor-btn-cancel:hover {
+    background: #e0e0e8;
+  }
+
+  .profile-editor-btn-save {
+    background: linear-gradient(135deg, #7c3aed, #6d28d9);
+    color: white;
+    box-shadow: 0 2px 6px rgba(124, 58, 237, 0.2);
+  }
+
+  .profile-editor-btn-save:hover {
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.4);
+    transform: translateY(-1px);
+  }
+
   /* Recipe modal */
   .recipe-modal {
     position: fixed;
@@ -1545,6 +1790,132 @@
     </div>
   </div>
 
+  <!-- Profile Editor Modal -->
+  <div class="profile-editor-modal" id="profileEditorModal">
+    <div class="profile-editor-content">
+      <div class="profile-editor-header">
+        <span class="profile-editor-title">Create Pressure Profile</span>
+        <button class="profile-editor-close" onclick="closeProfileEditor();">✕</button>
+      </div>
+
+      <div class="profile-editor-body">
+        <!-- Profile Info -->
+        <div class="profile-editor-section">
+          <div class="profile-editor-section-title">Profile Details</div>
+          <div class="profile-editor-field">
+            <label class="profile-editor-label">Profile Name</label>
+            <input type="text" class="profile-editor-input" id="profileName" placeholder="e.g., Light Roast Bloom" />
+          </div>
+          <div class="profile-editor-field">
+            <label class="profile-editor-label">Description</label>
+            <textarea class="profile-editor-textarea" id="profileDesc" placeholder="What beans is this for? How to dial in?"></textarea>
+          </div>
+        </div>
+
+        <!-- Pressure Profile Editor -->
+        <div class="profile-editor-section">
+          <div class="profile-editor-section-title">Pressure Curve</div>
+
+          <div class="profile-editor-preview">
+            <svg id="profileCurvePreview" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+              <!-- Grid -->
+              <line x1="0" y1="50" x2="400" y2="50" stroke="#eee" stroke-width="1"/>
+              <line x1="0" y1="100" x2="400" y2="100" stroke="#eee" stroke-width="1"/>
+              <line x1="0" y1="150" x2="400" y2="150" stroke="#eee" stroke-width="1"/>
+
+              <!-- Axes -->
+              <line x1="30" y1="10" x2="30" y2="190" stroke="#333" stroke-width="2"/>
+              <line x1="30" y1="190" x2="390" y2="190" stroke="#333" stroke-width="2"/>
+
+              <!-- Labels -->
+              <text x="5" y="60" font-size="10" fill="#666">9</text>
+              <text x="5" y="110" font-size="10" fill="#666">5</text>
+              <text x="5" y="160" font-size="10" fill="#666">0</text>
+              <text x="190" y="205" font-size="10" fill="#666" text-anchor="middle">Time (s)</text>
+
+              <!-- Curve placeholder -->
+              <path id="profileCurve" d="M 30 180 Q 100 150 150 100 T 300 80 L 380 120" fill="none" stroke="#7c3aed" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+
+          <!-- Pre-infusion -->
+          <div class="profile-editor-slider-group">
+            <div style="font-size: 11px; font-weight: 600; color: #666; margin-bottom: 8px;">Pre-infusion</div>
+            <div class="profile-editor-slider-row">
+              <span class="profile-editor-slider-label">Duration (sec)</span>
+              <input type="range" class="profile-editor-slider" id="preinfusionDuration" min="3" max="15" value="6" oninput="updateProfilePreview();" />
+              <span class="profile-editor-value" id="preinfusionDurationVal">6s</span>
+            </div>
+            <div class="profile-editor-slider-row">
+              <span class="profile-editor-slider-label">Target Pressure (bar)</span>
+              <input type="range" class="profile-editor-slider" id="preinfusionPressure" min="1" max="5" value="3" step="0.5" oninput="updateProfilePreview();" />
+              <span class="profile-editor-value" id="preinfusionPressureVal">3.0 bar</span>
+            </div>
+          </div>
+
+          <!-- Rise -->
+          <div class="profile-editor-slider-group">
+            <div style="font-size: 11px; font-weight: 600; color: #666; margin-bottom: 8px;">Rise (Ramp to Pressure)</div>
+            <div class="profile-editor-slider-row">
+              <span class="profile-editor-slider-label">Duration (sec)</span>
+              <input type="range" class="profile-editor-slider" id="riseDuration" min="3" max="20" value="8" oninput="updateProfilePreview();" />
+              <span class="profile-editor-value" id="riseDurationVal">8s</span>
+            </div>
+            <div class="profile-editor-slider-row">
+              <span class="profile-editor-slider-label">Target Pressure (bar)</span>
+              <input type="range" class="profile-editor-slider" id="risePressure" min="6" max="10" value="9" step="0.5" oninput="updateProfilePreview();" />
+              <span class="profile-editor-value" id="risePressureVal">9.0 bar</span>
+            </div>
+          </div>
+
+          <!-- Plateau -->
+          <div class="profile-editor-slider-group">
+            <div style="font-size: 11px; font-weight: 600; color: #666; margin-bottom: 8px;">Plateau (Hold Pressure)</div>
+            <div class="profile-editor-slider-row">
+              <span class="profile-editor-slider-label">Duration (sec)</span>
+              <input type="range" class="profile-editor-slider" id="plateauDuration" min="5" max="25" value="15" oninput="updateProfilePreview();" />
+              <span class="profile-editor-value" id="plateauDurationVal">15s</span>
+            </div>
+            <div class="profile-editor-slider-row">
+              <span class="profile-editor-slider-label">Hold Pressure (bar)</span>
+              <input type="range" class="profile-editor-slider" id="plateauPressure" min="6" max="10" value="9" step="0.5" oninput="updateProfilePreview();" />
+              <span class="profile-editor-value" id="plateauPressureVal">9.0 bar</span>
+            </div>
+          </div>
+
+          <!-- Decline -->
+          <div class="profile-editor-slider-group">
+            <div style="font-size: 11px; font-weight: 600; color: #666; margin-bottom: 8px;">Decline (Optional)</div>
+            <div class="profile-editor-slider-row">
+              <span class="profile-editor-slider-label">Duration (sec)</span>
+              <input type="range" class="profile-editor-slider" id="declineDuration" min="0" max="10" value="5" oninput="updateProfilePreview();" />
+              <span class="profile-editor-value" id="declineDurationVal">5s</span>
+            </div>
+            <div class="profile-editor-slider-row">
+              <span class="profile-editor-slider-label">End Pressure (bar)</span>
+              <input type="range" class="profile-editor-slider" id="declinePressure" min="3" max="9" value="6" step="0.5" oninput="updateProfilePreview();" />
+              <span class="profile-editor-value" id="declinePressureVal">6.0 bar</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stop Point -->
+        <div class="profile-editor-section">
+          <div class="profile-editor-section-title">Stop Conditions</div>
+          <div class="profile-editor-field">
+            <label class="profile-editor-label">Stop at Output Weight (grams)</label>
+            <input type="number" class="profile-editor-input" id="stopWeight" value="36" min="20" max="60" />
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-editor-footer">
+        <button class="profile-editor-btn profile-editor-btn-cancel" onclick="closeProfileEditor();">Cancel</button>
+        <button class="profile-editor-btn profile-editor-btn-save" onclick="saveProfile();">Create Profile</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Recipe Modal -->
   <div class="recipe-modal" id="recipeModal">
     <div class="recipe-modal-content">
@@ -1599,6 +1970,9 @@
 
         <!-- Profiles Tab -->
         <div id="profiles-tab" class="marketplace-tab-content">
+          <div style="margin-bottom: 20px;">
+            <button class="marketplace-item-button" onclick="openProfileEditor();" style="width: 100%; padding: 10px 12px; font-size: 12px;">+ Create Custom Profile</button>
+          </div>
           <div class="marketplace-item">
             <div class="marketplace-item-preview">📊</div>
             <div class="marketplace-item-content">
@@ -2007,6 +2381,13 @@ document.addEventListener('DOMContentLoaded', () => {
       closeRecipeModal();
     }
   });
+
+  // Close profile editor modal when clicking outside
+  document.getElementById('profileEditorModal').addEventListener('click', (e) => {
+    if (e.target.id === 'profileEditorModal') {
+      closeProfileEditor();
+    }
+  });
 });
 
 // Toggle marketplace drawer
@@ -2116,6 +2497,116 @@ function closeRecipeModal() {
 function saveRecipe() {
   alert('Recipe saved to your collection! 🎉');
   closeRecipeModal();
+}
+
+// Profile Editor Functions
+function openProfileEditor() {
+  document.getElementById('profileEditorModal').classList.add('open');
+  updateProfilePreview();
+}
+
+function closeProfileEditor() {
+  document.getElementById('profileEditorModal').classList.remove('open');
+}
+
+function updateProfilePreview() {
+  const preinfusionDur = parseFloat(document.getElementById('preinfusionDuration').value);
+  const preinfusionPres = parseFloat(document.getElementById('preinfusionPressure').value);
+  const riseDur = parseFloat(document.getElementById('riseDuration').value);
+  const risePres = parseFloat(document.getElementById('risePressure').value);
+  const plateauDur = parseFloat(document.getElementById('plateauDuration').value);
+  const plateauPres = parseFloat(document.getElementById('plateauPressure').value);
+  const declineDur = parseFloat(document.getElementById('declineDuration').value);
+  const declinePres = parseFloat(document.getElementById('declinePressure').value);
+
+  // Update value displays
+  document.getElementById('preinfusionDurationVal').textContent = preinfusionDur.toFixed(0) + 's';
+  document.getElementById('preinfusionPressureVal').textContent = preinfusionPres.toFixed(1) + ' bar';
+  document.getElementById('riseDurationVal').textContent = riseDur.toFixed(0) + 's';
+  document.getElementById('risePressureVal').textContent = risePres.toFixed(1) + ' bar';
+  document.getElementById('plateauDurationVal').textContent = plateauDur.toFixed(0) + 's';
+  document.getElementById('plateauPressureVal').textContent = plateauPres.toFixed(1) + ' bar';
+  document.getElementById('declineDurationVal').textContent = declineDur.toFixed(0) + 's';
+  document.getElementById('declinePressureVal').textContent = declinePres.toFixed(1) + ' bar';
+
+  // Build curve path
+  const svgWidth = 400;
+  const svgHeight = 200;
+  const margin = 30;
+  const graphWidth = svgWidth - margin - 10;
+  const graphHeight = svgHeight - margin - 10;
+  const maxPressure = 10;
+  const totalTime = preinfusionDur + riseDur + plateauDur + declineDur;
+
+  // Convert pressure and time to pixel coords
+  const pressureToY = (p) => svgHeight - margin - (p / maxPressure) * graphHeight;
+  const timeToX = (t) => margin + (t / totalTime) * graphWidth;
+
+  // Build path
+  let path = `M ${timeToX(0)} ${pressureToY(0)}`;
+  
+  // Preinfusion ramp
+  path += ` L ${timeToX(preinfusionDur)} ${pressureToY(preinfusionPres)}`;
+  
+  // Rise ramp
+  path += ` L ${timeToX(preinfusionDur + riseDur)} ${pressureToY(risePres)}`;
+  
+  // Plateau
+  path += ` L ${timeToX(preinfusionDur + riseDur + plateauDur)} ${pressureToY(plateauPres)}`;
+  
+  // Decline
+  if (declineDur > 0) {
+    path += ` L ${timeToX(totalTime)} ${pressureToY(declinePres)}`;
+  }
+
+  document.getElementById('profileCurve').setAttribute('d', path);
+}
+
+function saveProfile() {
+  const name = document.getElementById('profileName').value.trim();
+  const desc = document.getElementById('profileDesc').value.trim();
+  const stopWeight = document.getElementById('stopWeight').value;
+
+  if (!name) {
+    alert('Please enter a profile name');
+    return;
+  }
+
+  if (!desc) {
+    alert('Please enter a description');
+    return;
+  }
+
+  // Collect profile data
+  const profile = {
+    name: name,
+    description: desc,
+    author: 'user',
+    points: [
+      // Preinfusion
+      { time: 0, pressure: 0 },
+      { time: parseFloat(document.getElementById('preinfusionDuration').value), pressure: parseFloat(document.getElementById('preinfusionPressure').value) },
+      // Rise
+      { time: parseFloat(document.getElementById('preinfusionDuration').value) + parseFloat(document.getElementById('riseDuration').value), pressure: parseFloat(document.getElementById('risePressure').value) },
+      // Plateau
+      { time: parseFloat(document.getElementById('preinfusionDuration').value) + parseFloat(document.getElementById('riseDuration').value) + parseFloat(document.getElementById('plateauDuration').value), pressure: parseFloat(document.getElementById('plateauPressure').value) },
+      // Decline (if applicable)
+      { time: parseFloat(document.getElementById('preinfusionDuration').value) + parseFloat(document.getElementById('riseDuration').value) + parseFloat(document.getElementById('plateauDuration').value) + parseFloat(document.getElementById('declineDuration').value), pressure: parseFloat(document.getElementById('declinePressure').value) }
+    ],
+    stopWeight: parseFloat(stopWeight)
+  };
+
+  console.log('Profile created:', profile);
+  alert('Profile "' + name + '" created! 🎉\n\nWhen backend is connected, this will save to your machine.');
+  
+  // TODO: POST to /api/profiles (save profile)
+  // fetch('/api/profiles', {
+  //   method: 'POST',
+  //   headers: { 'Content-Type': 'application/json' },
+  //   body: JSON.stringify(profile)
+  // });
+
+  closeProfileEditor();
 }
 </script>
 </body>
