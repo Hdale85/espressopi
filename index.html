@@ -1033,6 +1033,9 @@
     font-weight: 500;
     line-height: 1;
     color: #e8e8e8;
+    font-variant-numeric: tabular-nums;  /* Keep digits same width */
+    min-width: 100px;  /* Reserve space for largest numbers */
+    display: inline-block;
   }
 
   .stat-big .value.highlight { color: #7c3aed; }
@@ -1211,6 +1214,9 @@
     font-weight: 500;
     color: #d0d0d8;
     line-height: 1;
+    font-variant-numeric: tabular-nums;  /* Keep digits same width */
+    display: inline-block;
+    min-width: 60px;
   }
 
   .sc-unit {
