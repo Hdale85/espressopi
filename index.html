@@ -622,6 +622,138 @@
     font-size: 10px;
     color: #3a3a44;
   }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4); }
+    50% { box-shadow: 0 0 0 8px rgba(124, 58, 237, 0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+  }
+
+  @keyframes shimmer {
+    0%, 100% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes buttonPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.98); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes ripple {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(4); opacity: 0; }
+  }
+
+  @keyframes numberFlip {
+    0% { transform: rotateX(90deg); opacity: 0; }
+    100% { transform: rotateX(0deg); opacity: 1; }
+  }
+
+  .stat-big .value {
+    transition: color 0.3s ease;
+  }
+
+  .stat-big .value.live {
+    animation: pulseGlow 2s infinite;
+    color: #7c3aed;
+  }
+
+  .sc-value.live {
+    animation: pulseGlow 2s infinite;
+  }
+
+  .status-dot.active {
+    animation: pulse 2s infinite;
+  }
+
+  .btn-shoot {
+    transition: all 0.15s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-shoot:active {
+    animation: buttonPulse 0.3s ease;
+    transform: scale(0.98);
+  }
+
+  .btn-shoot::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: ripple 0.6s ease-out;
+    display: none;
+  }
+
+  .btn-shoot.clicked::after {
+    display: block;
+    animation: ripple 0.6s ease-out;
+  }
+
+  .btn-stop {
+    transition: all 0.15s ease;
+  }
+
+  .btn-stop:active {
+    animation: buttonPulse 0.3s ease;
+    transform: scale(0.98);
+  }
+
+  .graph svg path {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawCurve 2.5s ease-out forwards;
+  }
+
+  .graph svg path.target-curve {
+    animation: none;
+  }
+
+  @keyframes drawCurve {
+    0% { stroke-dashoffset: 1000; }
+    100% { stroke-dashoffset: 0; }
+  }
+
+  .shot-mini-fill {
+    animation: slideUp 0.4s ease-out;
+  }
+
+  /* Smooth number transitions */
+  .stat-value-animated {
+    display: inline-block;
+    min-width: 60px;
+    text-align: center;
+  }
+
+  .toggle {
+    transition: all 0.3s ease;
+  }
+
+  .profile-item {
+    transition: all 0.2s ease;
+  }
+
+  .settings-row-value {
+    transition: all 0.2s ease;
+  }
+
 </style>
 </head>
 <body>
@@ -900,5 +1032,212 @@
   </div>
 
 </div>
+
+<script>
+// ─── REAL-TIME ANIMATION ENGINE ─── 
+class EspressoUI {
+  constructor() {
+    this.isShooting = false;
+    this.shotProgress = 0;
+    this.shotStartTime = null;
+    this.shotDuration = 35000; // 35 seconds in ms
+    this.animationFrameId = null;
+    this.initEventListeners();
+    this.updateTime();
+    setInterval(() => this.updateTime(), 1000);
+  }
+
+  initEventListeners() {
+    const shootBtn = document.querySelector('.btn-shoot');
+    const stopBtn = document.querySelector('.btn-stop');
+    const gearBtn = document.querySelector('.gear-btn');
+
+    shootBtn.addEventListener('click', (e) => this.startShot(e));
+    stopBtn.addEventListener('click', () => this.stopShot());
+    gearBtn.addEventListener('click', () => this.toggleSettings());
+
+    // Profile selection
+    document.querySelectorAll('.profile-item').forEach(item => {
+      item.addEventListener('click', () => this.selectProfile(item));
+    });
+
+    // Toggles
+    document.querySelectorAll('.toggle').forEach(toggle => {
+      toggle.addEventListener('click', () => this.toggleSwitch(toggle));
+    });
+  }
+
+  startShot(e) {
+    if (this.isShooting) return;
+    this.isShooting = true;
+    this.shotStartTime = Date.now();
+    this.shotProgress = 0;
+
+    const shootBtn = document.querySelector('.btn-shoot');
+    shootBtn.classList.add('clicked');
+    
+    // Ripple effect
+    const rect = shootBtn.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    setTimeout(() => shootBtn.classList.remove('clicked'), 600);
+
+    // Start pressure curve animation
+    this.animateShot();
+    
+    // Simulate real-time data updates
+    this.updateLiveData();
+  }
+
+  stopShot() {
+    this.isShooting = false;
+    if (this.animationFrameId) {
+      cancelAnimationFrame(this.animationFrameId);
+    }
+    this.resetShot();
+  }
+
+  animateShot() {
+    const animate = () => {
+      if (!this.isShooting) return;
+
+      const elapsed = Date.now() - this.shotStartTime;
+      this.shotProgress = Math.min(elapsed / this.shotDuration, 1);
+
+      // Update graph curve (real-time drawing)
+      this.updateGraphCurve(this.shotProgress);
+
+      // Update stats
+      this.updateShotStats(this.shotProgress);
+
+      if (this.shotProgress < 1) {
+        this.animationFrameId = requestAnimationFrame(animate);
+      } else {
+        this.isShooting = false;
+      }
+    };
+
+    this.animationFrameId = requestAnimationFrame(animate);
+  }
+
+  updateGraphCurve(progress) {
+    const svg = document.querySelector('.graph svg');
+    const actualCurve = svg.querySelector('path:nth-of-type(2)'); // Actual curve
+    
+    if (actualCurve) {
+      const fullLength = actualCurve.getTotalLength();
+      const newOffset = fullLength * (1 - progress);
+      actualCurve.style.strokeDashoffset = newOffset;
+    }
+  }
+
+  updateShotStats(progress) {
+    // Simulate pressure curve (ramp up, plateau, ramp down)
+    let pressure = 0;
+    if (progress < 0.2) { // Pre-infusion
+      pressure = 3 + (progress / 0.2) * 6; // Ramp to 9 bar
+    } else if (progress < 0.8) { // Plateau
+      pressure = 9;
+    } else { // Decline
+      pressure = 9 - ((progress - 0.8) / 0.2) * 2;
+    }
+
+    // Update pressure value with smooth animation
+    this.updateStat('[data-stat="pressure"]', pressure.toFixed(1), 'bar');
+    
+    // Update time
+    const time = (progress * this.shotDuration / 1000).toFixed(1);
+    this.updateStat('[data-stat="time"]', time, 'seconds');
+    
+    // Update volume (volumetric: 0-40ml)
+    const volume = (progress * 40).toFixed(0);
+    this.updateStat('[data-stat="volume"]', volume, 'ml');
+    
+    // Update temperature (slight variation)
+    const temp = (93 + Math.sin(progress * Math.PI) * 1.5).toFixed(1);
+    this.updateStat('[data-stat="temp"]', temp, '°C');
+  }
+
+  updateStat(selector, value, unit) {
+    const stat = document.querySelector(selector);
+    if (!stat) return;
+    
+    const valueEl = stat.querySelector('.value') || stat;
+    if (valueEl.textContent !== value) {
+      valueEl.textContent = value;
+      valueEl.classList.add('live');
+      
+      // Re-trigger animation
+      void valueEl.offsetWidth; // Reflow
+    }
+  }
+
+  updateLiveData() {
+    if (!this.isShooting) return;
+    
+    // Update boiler temp with slight variation
+    const boilerEl = document.querySelector('.sc-value');
+    if (boilerEl && Math.random() < 0.3) {
+      const current = parseFloat(boilerEl.textContent);
+      const newVal = (current + (Math.random() - 0.5) * 0.5).toFixed(1);
+      boilerEl.textContent = newVal;
+      boilerEl.classList.add('live');
+    }
+
+    setTimeout(() => this.updateLiveData(), 500);
+  }
+
+  resetShot() {
+    // Reset to default values
+    this.updateStat('[data-stat="pressure"]', '9.1', 'bar');
+    this.updateStat('[data-stat="time"]', '27.4', 'seconds');
+    this.updateStat('[data-stat="volume"]', '38', 'ml');
+    this.updateStat('[data-stat="temp"]', '93.2', '°C');
+    
+    // Remove live animation classes
+    document.querySelectorAll('.live').forEach(el => el.classList.remove('live'));
+  }
+
+  selectProfile(item) {
+    document.querySelectorAll('.profile-item').forEach(p => p.classList.remove('active'));
+    item.classList.add('active');
+  }
+
+  toggleSwitch(toggle) {
+    toggle.classList.toggle('on');
+  }
+
+  toggleSettings() {
+    document.querySelector('.settings-drawer').classList.toggle('open');
+    document.querySelector('.screen').classList.toggle('settings-open');
+  }
+
+  updateTime() {
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+    const dateStr = now.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+    
+    document.querySelector('.ft-time').textContent = timeStr;
+    document.querySelector('.ft-date').textContent = dateStr;
+  }
+}
+
+// Initialize UI on page load
+document.addEventListener('DOMContentLoaded', () => {
+  // Add data attributes for stat tracking
+  const pressureEl = document.querySelector('.stat-big:nth-child(1) .value');
+  const timeEl = document.querySelector('.stat-big:nth-child(2) .value');
+  const volumeEl = document.querySelector('.stat-big:nth-child(3) .value');
+  const tempEl = document.querySelector('.stat-big:nth-child(4) .value');
+  
+  if (pressureEl) pressureEl.setAttribute('data-stat', 'pressure');
+  if (timeEl) timeEl.setAttribute('data-stat', 'time');
+  if (volumeEl) volumeEl.setAttribute('data-stat', 'volume');
+  if (tempEl) tempEl.setAttribute('data-stat', 'temp');
+
+  new EspressoUI();
+});
+</script>
 </body>
 </html>
