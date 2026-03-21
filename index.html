@@ -133,26 +133,13 @@
     padding: 20px 24px;
     overflow-y: auto;
     overflow-x: hidden;
-    scrollbar-width: thin;
-    scrollbar-color: #ccc #f8f8fa;
+    scrollbar-width: none;  /* Hide scrollbar Firefox */
+    -ms-overflow-style: none;  /* Hide scrollbar IE/Edge */
     min-height: 0;  /* Allow flex children to scroll */
   }
 
   .marketplace-content::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .marketplace-content::-webkit-scrollbar-track {
-    background: #f8f8fa;
-  }
-
-  .marketplace-content::-webkit-scrollbar-thumb {
-    background: #ddd;
-    border-radius: 3px;
-  }
-
-  .marketplace-content::-webkit-scrollbar-thumb:hover {
-    background: #bbb;
+    display: none;  /* Hide scrollbar Chrome/Safari */
   }
 
   .marketplace-tabs {
