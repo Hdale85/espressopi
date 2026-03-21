@@ -1201,11 +1201,9 @@ class EspressoUI {
   initEventListeners() {
     const shootBtn = document.querySelector('.btn-shoot');
     const stopBtn = document.querySelector('.btn-stop');
-    const gearBtn = document.querySelector('.gear-btn');
 
     shootBtn.addEventListener('click', (e) => this.startShot(e));
     stopBtn.addEventListener('click', () => this.stopShot());
-    gearBtn.addEventListener('click', () => this.toggleSettings());
 
     // Profile selection
     document.querySelectorAll('.profile-item').forEach(item => {
