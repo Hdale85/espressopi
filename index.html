@@ -1081,14 +1081,14 @@
   </div>
 
   <!-- Gear button -->
-  <button class="gear-btn" onclick="window.espressoUI && window.espressoUI.toggleSettings()">⚙</button>
+  <button class="gear-btn" onclick="document.querySelector('.settings-drawer').classList.toggle('open'); document.querySelector('.screen').classList.toggle('settings-open');">⚙</button>
 
   <!-- Settings Drawer -->
   <div class="settings-drawer">
     <div class="settings-inner">
       <div class="settings-header">
         <span class="settings-title">Settings</span>
-        <button class="settings-close" onclick="window.espressoUI && window.espressoUI.toggleSettings()">✕</button>
+        <button class="settings-close" onclick="document.querySelector('.settings-drawer').classList.toggle('open'); document.querySelector('.screen').classList.toggle('settings-open');">✕</button>
       </div>
 
       <div class="settings-section">
