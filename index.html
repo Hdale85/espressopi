@@ -1593,33 +1593,45 @@
       <!-- Shot Comparison Legend -->
       <div id="comparisonLegend" style="display:none; padding:8px 0; font-size:9px; margin-bottom:8px; border-bottom:1px solid #2a2a38;">
         <div style="display:flex; gap:16px; flex-wrap:wrap;">
-          <div style="display:flex; align-items:center; gap:6px;"><div style="width:12px; height:2px; background:#7c3aed;"></div><span style="color:#aaa;">Last Shot</span></div>
-          <div style="display:flex; align-items:center; gap:6px;"><div style="width:12px; height:2px; background:#e8873a;"></div><span style="color:#aaa;">-2 Shots</span></div>
-          <div style="display:flex; align-items:center; gap:6px;"><div style="width:12px; height:2px; background:#3ddc84;"></div><span style="color:#aaa;">-3 Shots</span></div>
-          <div style="display:flex; align-items:center; gap:6px;"><div style="width:12px; height:2px; background:#666; border-top:1px dashed #666;"></div><span style="color:#aaa;">Target</span></div>
+          <div style="display:flex; align-items:center; gap:6px;"><div id="legend1" style="width:12px; height:2px; background:#7c3aed;"></div><span style="color:#aaa;">Last Shot</span></div>
+          <div style="display:flex; align-items:center; gap:6px;"><div id="legend2" style="width:12px; height:2px; background:#e8873a;"></div><span style="color:#aaa;">-2 Shots</span></div>
+          <div style="display:flex; align-items:center; gap:6px;"><div id="legend3" style="width:12px; height:2px; background:#3ddc84;"></div><span style="color:#aaa;">-3 Shots</span></div>
+          <div style="display:flex; align-items:center; gap:6px;"><div id="legendT" style="width:12px; height:2px; background:#888; border-top:1px dashed #888;"></div><span style="color:#aaa;">Target</span></div>
         </div>
       </div>
 
       <!-- Shot Comparison UI (hidden by default) -->
       <div id="shotComparisonPanel" style="display:none; background:#16161e; padding:12px; border-radius:6px; margin-bottom:8px; font-size:11px;">
         <div style="color:#7c3aed; font-weight:600; margin-bottom:8px;">Compare Shots</div>
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-bottom:8px;">
-          <label style="display:flex; align-items:center; gap:6px; cursor:pointer; color:#aaa;">
-            <input type="checkbox" id="shot1Toggle" checked onchange="updateComparison();" />
-            <span>Last Shot</span>
-          </label>
-          <label style="display:flex; align-items:center; gap:6px; cursor:pointer; color:#aaa;">
-            <input type="checkbox" id="shot2Toggle" onchange="updateComparison();" />
-            <span>-2 Shots Ago</span>
-          </label>
-          <label style="display:flex; align-items:center; gap:6px; cursor:pointer; color:#aaa;">
-            <input type="checkbox" id="shot3Toggle" onchange="updateComparison();" />
-            <span>-3 Shots Ago</span>
-          </label>
-          <label style="display:flex; align-items:center; gap:6px; cursor:pointer; color:#aaa;">
-            <input type="checkbox" id="targetToggle" checked onchange="updateComparison();" />
-            <span>Target Profile</span>
-          </label>
+        <div style="display:flex; flex-direction:column; gap:8px;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer; color:#aaa; flex:1;">
+              <input type="checkbox" id="shot1Toggle" checked onchange="updateComparison();" />
+              <span>Last Shot</span>
+            </label>
+            <input type="color" id="shot1Color" value="#7c3aed" onchange="updateComparison();" style="width:24px; height:24px; border:1px solid #2a2a38; border-radius:4px; cursor:pointer;" />
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer; color:#aaa; flex:1;">
+              <input type="checkbox" id="shot2Toggle" onchange="updateComparison();" />
+              <span>-2 Shots Ago</span>
+            </label>
+            <input type="color" id="shot2Color" value="#e8873a" onchange="updateComparison();" style="width:24px; height:24px; border:1px solid #2a2a38; border-radius:4px; cursor:pointer;" />
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer; color:#aaa; flex:1;">
+              <input type="checkbox" id="shot3Toggle" onchange="updateComparison();" />
+              <span>-3 Shots Ago</span>
+            </label>
+            <input type="color" id="shot3Color" value="#3ddc84" onchange="updateComparison();" style="width:24px; height:24px; border:1px solid #2a2a38; border-radius:4px; cursor:pointer;" />
+          </div>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <label style="display:flex; align-items:center; gap:6px; cursor:pointer; color:#aaa; flex:1;">
+              <input type="checkbox" id="targetToggle" checked onchange="updateComparison();" />
+              <span>Target Profile</span>
+            </label>
+            <input type="color" id="targetColor" value="#888888" onchange="updateComparison();" style="width:24px; height:24px; border:1px solid #2a2a38; border-radius:4px; cursor:pointer;" />
+          </div>
         </div>
       </div>
       <div class="graph">
@@ -2534,6 +2546,15 @@ function updateComparison() {
   // Remove old comparison paths
   document.querySelectorAll('.comparison-curve').forEach(el => el.remove());
   
+  // Update legend colors
+  if (document.getElementById('legend1')) {
+    document.getElementById('legend1').style.background = document.getElementById('shot1Color').value;
+    document.getElementById('legend2').style.background = document.getElementById('shot2Color').value;
+    document.getElementById('legend3').style.background = document.getElementById('shot3Color').value;
+    document.getElementById('legendT').style.background = document.getElementById('targetColor').value;
+    document.getElementById('legendT').style.borderTopColor = document.getElementById('targetColor').value;
+  }
+  
   if (!comparisonOpen) return;  // Don't draw if comparison is closed
   
   // Get current SVG dimensions
@@ -2550,15 +2571,19 @@ function updateComparison() {
   
   // Draw comparison curves (only if checked)
   if (document.getElementById('shot1Toggle') && document.getElementById('shot1Toggle').checked) {
+    shotData.current.color = document.getElementById('shot1Color').value;
     drawComparisonCurve(svg, shotData.current, pressureToY, timeToX);
   }
   if (document.getElementById('shot2Toggle') && document.getElementById('shot2Toggle').checked) {
+    shotData.previous[0].color = document.getElementById('shot2Color').value;
     drawComparisonCurve(svg, shotData.previous[0], pressureToY, timeToX);
   }
   if (document.getElementById('shot3Toggle') && document.getElementById('shot3Toggle').checked) {
+    shotData.previous[1].color = document.getElementById('shot3Color').value;
     drawComparisonCurve(svg, shotData.previous[1], pressureToY, timeToX);
   }
   if (document.getElementById('targetToggle') && document.getElementById('targetToggle').checked) {
+    shotData.target.color = document.getElementById('targetColor').value;
     drawComparisonCurve(svg, shotData.target, pressureToY, timeToX);
   }
 }
