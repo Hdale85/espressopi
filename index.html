@@ -886,6 +886,10 @@
     border-color: #7c3aed;
   }
 
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
   .shot-controls {
     display: flex;
     flex-direction: column;
@@ -1551,7 +1555,7 @@
     </div>
 
     <div id="history-list" style="display:none;">
-      <div style="display:flex; flex-direction:column; gap:4px; max-height:280px; overflow-y:auto; scrollbar-width:none;">
+      <div style="display:flex; flex-direction:column; gap:4px; max-height:380px; overflow-y:auto; scrollbar-width:none; -ms-overflow-style:none;" class="hide-scrollbar">
         <div class="history-item" onclick="viewShotDetail(0);">
           <div style="font-size:10px; font-weight:600; color:#7c3aed;">27.4s • 9.1¯ • 38ml</div>
           <div style="font-size:8px; color:#888; margin-top:2px;">2 mins ago</div>
@@ -1576,6 +1580,36 @@
           <div style="font-size:10px; font-weight:600; color:#aaa;">28.5s • 9.3¯ • 39ml</div>
           <div style="font-size:8px; color:#888; margin-top:2px;">2h ago</div>
           <div style="font-size:8px; color:#666;">Classic 9-Bar</div>
+        </div>
+        <div class="history-item" onclick="viewShotDetail(5);">
+          <div style="font-size:10px; font-weight:600; color:#aaa;">25.3s • 9.0¯ • 37ml</div>
+          <div style="font-size:8px; color:#888; margin-top:2px;">3h ago</div>
+          <div style="font-size:8px; color:#666;">Classic 9-Bar</div>
+        </div>
+        <div class="history-item" onclick="viewShotDetail(6);">
+          <div style="font-size:10px; font-weight:600; color:#aaa;">26.1s • 8.8¯ • 36ml</div>
+          <div style="font-size:8px; color:#888; margin-top:2px;">4h ago</div>
+          <div style="font-size:8px; color:#666;">Turbo Bloom</div>
+        </div>
+        <div class="history-item" onclick="viewShotDetail(7);">
+          <div style="font-size:10px; font-weight:600; color:#aaa;">29.2s • 8.6¯ • 38ml</div>
+          <div style="font-size:8px; color:#888; margin-top:2px;">5h ago</div>
+          <div style="font-size:8px; color:#666;">Classic 9-Bar</div>
+        </div>
+        <div class="history-item" onclick="viewShotDetail(8);">
+          <div style="font-size:10px; font-weight:600; color:#aaa;">22.8s • 9.4¯ • 34ml</div>
+          <div style="font-size:8px; color:#888; margin-top:2px;">6h ago</div>
+          <div style="font-size:8px; color:#666;">Pressure Ramp</div>
+        </div>
+        <div class="history-item" onclick="viewShotDetail(9);">
+          <div style="font-size:10px; font-weight:600; color:#aaa;">27.9s • 9.1¯ • 39ml</div>
+          <div style="font-size:8px; color:#888; margin-top:2px;">yesterday</div>
+          <div style="font-size:8px; color:#666;">Classic 9-Bar</div>
+        </div>
+        <div class="history-item" onclick="viewShotDetail(10);">
+          <div style="font-size:10px; font-weight:600; color:#aaa;">25.6s • 8.9¯ • 37ml</div>
+          <div style="font-size:8px; color:#888; margin-top:2px;">2 days ago</div>
+          <div style="font-size:8px; color:#666;">Slayer Style</div>
         </div>
       </div>
     </div>
